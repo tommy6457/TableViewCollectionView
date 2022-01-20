@@ -9,11 +9,11 @@ import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
     
+    var deviceWidth: Double! //實際裝置的寬
     let space = 15.0 //圖片間隔
-    var padding = 40.0 // 前後照片露出的部分
-    
+    var padding: Double! { deviceWidth * 0.1 } //部分分頁
+
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var heightConstraint: NSLayoutConstraint! //collectionView的height
     let images = ["Image-1","Image-2","Image-3","Image-4","Image-5","Image-6"]
     
@@ -21,8 +21,6 @@ class PhotosTableViewCell: UITableViewCell {
         super.awakeFromNib()
         collectionView.delegate = self
         collectionView.dataSource = self
-        setFlowLayout()
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,11 +30,8 @@ class PhotosTableViewCell: UITableViewCell {
     }
     
     func setFlowLayout() {
-        padding = collectionView.frame.width * 0.1
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        
-        let width = collectionView.bounds.width - space * 2 - padding * 2
-        
+        let width = deviceWidth - space * 2 - padding * 2
         layout.minimumLineSpacing = space
         heightConstraint.constant = width //透過程式改 Constraint
         layout.itemSize = CGSize(width: width, height: width)

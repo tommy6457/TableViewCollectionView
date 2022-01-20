@@ -55,7 +55,8 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(PhotosTableViewCell.self)", for: indexPath) as! PhotosTableViewCell
-            
+            cell.deviceWidth = view.bounds.width
+            cell.setFlowLayout()
             return cell
             
         }else{
